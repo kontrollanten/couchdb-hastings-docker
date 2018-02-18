@@ -3,6 +3,8 @@
 if [ "$1" = "before-configure" ]
 then
   sed -i '/DepDescs = \[/a \{easton,           "easton",           "bc03c71de798be1f0e4b3c74da0eaeb7a2938c78"\},\n\{hastings ,        "hastings",         "1cca585bc63c3c246b674fca33a661b083e9f6f7"\},' rebar.config.script
+  # Fix failing fauxton build
+  sed -i '/fauxton/{n;s/".*"/"v1.1.13"/}' rebar.config.script
   sed -i '/MakeDep = fun/a\\t\t(\{AppName, RepoName, Version\}) when AppName == hastings; AppName == easton ->\n\t\t\tUrl = "https://github.com/cloudant-labs/" ++ RepoName ++ ".git",\n\t\t\t{AppName, ".*", \{git, Url, Version\}\};\n' rebar.config.script
   sed -i '/{plugins, \[/a    hastings_epi,' rel/apps/couch_epi.config
   sed -i '/{rel, "couchdb"/a        easton,' rel/reltool.config

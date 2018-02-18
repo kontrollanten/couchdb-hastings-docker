@@ -22,7 +22,7 @@ RUN apt-get update
 RUN apt-get install -y esl-erlang=1:19.3.6
 
 # Node
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
 RUN apt-get install -y nodejs
 
 # Rebar
@@ -46,6 +46,7 @@ RUN cp -r CsMapDev/Include /usr/local/include/CsMap && cp CsMapDev/Source/CsMap.
 # CouchDB
 RUN git clone https://github.com/apache/couchdb
 WORKDIR /couchdb
+RUN git checkout tags/2.1.1
 COPY hastings-fixer.sh .
 RUN ./hastings-fixer.sh before-configure
 RUN ./configure --disable-docs 
@@ -53,7 +54,7 @@ RUN ./hastings-fixer.sh
 RUN make release
 
 # Single Node setup
-COPY data rel/couchdb/data
+# COPY data rel/couchdb/data
 
 # Docker config adjustments
 RUN sed -e 's/^bind_address = .*$/bind_address = 0.0.0.0/' -i rel/couchdb/etc/default.ini
