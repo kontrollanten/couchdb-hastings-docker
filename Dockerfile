@@ -37,7 +37,7 @@ RUN cd geos-3.5.1 && ./configure && make && make install
 RUN git clone https://github.com/google/leveldb.git
 RUN cd leveldb && make && cp out-static/lib* out-shared/lib* /usr/local/lib/ && cd include/ && cp -r leveldb /usr/local/include/ && ldconfig
 RUN apt-get -y install subversion
-RUN svn checkout https://svn.osgeo.org/metacrs/csmap/branches/14.01/CsMapDev
+RUN svn export https://svn.osgeo.org/metacrs/csmap/branches/14.01/CsMapDev 
 RUN cd CsMapDev/Source && make -fLibrary.mak
 RUN cd CsMapDev/Dictionaries && make -fCompiler.mak && ./CS_Comp . .
 RUN cd CsMapDev/Test && make -fTest.mak && ./CS_Test -d../Dictionaries
