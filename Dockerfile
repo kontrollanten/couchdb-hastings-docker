@@ -1,30 +1,17 @@
-FROM debian:8
-# Debian dependencies
-RUN apt-get update && apt-get upgrade -y && apt-get --no-install-recommends -y install \
-build-essential \
+FROM bitwalker/alpine-erlang:20.2.2
+RUN apk add --no-cache \
+build-base \
 ca-certificates \
 curl \
+curl-dev \
 git \
-libicu-dev \
-libmozjs185-dev \
-libcurl4-openssl-dev \
-lsb-release \
-pkg-config \
-python-pip \
-ssh \
-vim \
-vim-gui-common \
-wget
-
-# Erlang
-RUN curl -o erlang-solutions.1.0_all.deb https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
-RUN dpkg -i erlang-solutions.1.0_all.deb
-RUN apt-get update
-RUN apt-get install -y esl-erlang=1:19.3.6
-
-# Node
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
-RUN apt-get install -y nodejs
+icu-dev \
+nodejs \
+pkgconfig \
+py-pip \
+openssh \
+wget \
+zlib-dev
 
 # Rebar
 RUN git clone https://github.com/rebar/rebar
@@ -37,7 +24,6 @@ RUN curl -sL http://download.osgeo.org/geos/geos-3.5.1.tar.bz2 | tar vxj
 RUN cd geos-3.5.1 && ./configure && make && make install
 RUN git clone https://github.com/google/leveldb.git
 RUN cd leveldb && make && cp out-static/lib* out-shared/lib* /usr/local/lib/ && cd include/ && cp -r leveldb /usr/local/include/ && ldconfig
-RUN apt-get -y install subversion
 RUN wget \
   --retry-connrefused \
   --waitretry=1 \
