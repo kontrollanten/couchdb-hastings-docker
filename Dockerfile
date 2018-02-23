@@ -13,7 +13,8 @@ pkg-config \
 python-pip \
 ssh \
 vim \
-vim-gui-common
+vim-gui-common \
+wget
 
 # Erlang
 RUN curl -o erlang-solutions.1.0_all.deb https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
@@ -37,7 +38,18 @@ RUN cd geos-3.5.1 && ./configure && make && make install
 RUN git clone https://github.com/google/leveldb.git
 RUN cd leveldb && make && cp out-static/lib* out-shared/lib* /usr/local/lib/ && cd include/ && cp -r leveldb /usr/local/include/ && ldconfig
 RUN apt-get -y install subversion
-RUN svn export https://svn.osgeo.org/metacrs/csmap/branches/14.01/CsMapDev 
+RUN wget \
+  --retry-connrefused \
+  --waitretry=1 \
+  --read-timeout=20 \
+  --timeout=15 \
+  -t 10 \
+  -nH \
+  -P CsMapDev \
+  --cut-dirs=5 \
+  -m \
+  -np \
+  https://svn.osgeo.org/metacrs/csmap/branches/14.01/CsMapDev
 RUN cd CsMapDev/Source && make -fLibrary.mak
 RUN cd CsMapDev/Dictionaries && make -fCompiler.mak && ./CS_Comp . .
 RUN cd CsMapDev/Test && make -fTest.mak && ./CS_Test -d../Dictionaries
