@@ -49,7 +49,7 @@ curl -X POST -H "Content-Type: application/json" -d '
 
 ### Query geo data
 ```
-curl -X GET localhost:5984/shelters/_design/SpatialView/_geo/shelters_geo?bbox=59.26,18.02,59.49,18.32
+curl -X GET localhost:5984/shelters/_design/SpatialView/_geo/shelter_positions?bbox=59.26,18.02,59.49,18.32
 
 {
   "bookmark": "g1AAAALDeJyNkrtKA0EUQJdoIWojpEll8APCPDKvQjcg2S8QK1HnaQhRC7HWJlWwMQHL-Ak2ahkFwTYfIJjGxs4ijQjrjUGx2g0D82CGw-EwrSiKFhpzLlqxx6e24UwNE1FBMHALrgpH8zBH57CkadpvNgqHcCzrIFmVwEvDPZcSca6qgmBDkeAcIZXEvZPSwdLjOINsajCbPcD-UZGilmlCtPXSBsUlogQzIokVTBidxN3BzVq__Zbr-zD1ff0lU8KQpwhEreOws4Zq7CR1PhBDlUjizu6mYBcbWb77E9-zmXwDVs6ZJL5sf-7c17-yqOUJNZ6JqhXCtAoVxi-dUnE5t8JoWiHNr6CCdT997yrF295zBllHZvUf0gXvidETsFeUcW2UQBBVq8AcDfARulvbT8OrxVzZ66nsIF9WBOEUA_LwY330Xm9-AyjxyZs",
